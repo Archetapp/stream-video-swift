@@ -11,7 +11,7 @@ final class WSEventsMiddleware: EventMiddleware {
     func handle(event: WrappedEvent) -> WrappedEvent? {
         var streamVideo: StreamVideo?
         for subscriber in subscribers.allObjects {
-            if let subscriber = subscriber as? StreamVideo {
+            if let subscriber = subscriber as? StreamVideoClass {
                 streamVideo = subscriber
             } else {
                 (subscriber as? WSEventsSubscriber)?.onEvent(event)

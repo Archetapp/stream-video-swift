@@ -4,7 +4,7 @@
 
 @testable import StreamVideo
 
-extension StreamVideo {
+extension StreamVideoClass {
     static var apiKey = "key1"
     static var mockUser = User(
         id: "testuser",
@@ -18,7 +18,7 @@ extension StreamVideo {
     static func mock(
         httpClient: HTTPClient,
         callController: CallController? = nil
-    ) -> StreamVideo {
+    ) -> StreamVideoClass {
         let streamVideo = StreamVideoClass(
             apiKey: apiKey,
             user: mockUser,
