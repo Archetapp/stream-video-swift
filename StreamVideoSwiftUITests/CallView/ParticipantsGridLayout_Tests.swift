@@ -16,7 +16,7 @@ final class ParticipantsGridLayout_Tests: StreamVideoUITestCase {
             transport: httpClient as! HTTPClient_Mock,
             middlewares: []
         ),
-        user: StreamVideo.mockUser,
+        user: StreamVideoClass.mockUser,
         callId: callId,
         callType: callType,
         apiKey: "123",
@@ -27,7 +27,7 @@ final class ParticipantsGridLayout_Tests: StreamVideoUITestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        let streamVideo = StreamVideo.mock(httpClient: httpClient, callController: callController)
+        let streamVideo = StreamVideoClass.mock(httpClient: httpClient, callController: callController)
         streamVideoUI = StreamVideoUI(streamVideo: streamVideo)
     }
     

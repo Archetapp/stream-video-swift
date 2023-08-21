@@ -12,7 +12,7 @@ open class StreamVideoTestCase: XCTestCase {
 
     open override func setUp() {
         super.setUp()
-        streamVideo = StreamVideo.mock(httpClient: httpClient)
+        streamVideo = StreamVideoClass.mock(httpClient: httpClient)
     }
     
     // TODO: replace this with something a bit better

@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func login(_ user: UserCredentials) {
-        let streamVideo = StreamVideo(
+        let streamVideo = StreamVideoClass(
             apiKey: Config.apiKey,
             user: user.userInfo,
             token: user.token,

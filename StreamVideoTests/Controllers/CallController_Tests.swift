@@ -15,10 +15,10 @@ final class CallController_Tests: ControllerTestCase {
     
     public override func setUp() {
         super.setUp()
-        streamVideo = StreamVideo(
+        streamVideo = StreamVideoClass(
             apiKey: apiKey,
             user: user,
-            token: StreamVideo.mockToken,
+            token: StreamVideoClass.mockToken,
             videoConfig: videoConfig,
             tokenProvider: { _ in }
         )
@@ -434,11 +434,11 @@ final class CallController_Tests: ControllerTestCase {
         }
         
         let webRTCClient = WebRTCClient(
-            user: StreamVideo.mockUser,
-            apiKey: StreamVideo.apiKey,
+            user: StreamVideoClass.mockUser,
+            apiKey: StreamVideoClass.apiKey,
             hostname: "test.com",
             webSocketURLString: "wss://test.com/ws",
-            token: StreamVideo.mockToken.rawValue,
+            token: StreamVideoClass.mockToken.rawValue,
             callCid: self.callCid,
             sessionID: nil,
             ownCapabilities: [.sendAudio, .sendVideo],

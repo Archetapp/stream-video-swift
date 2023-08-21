@@ -72,7 +72,7 @@ struct StreamVideoSwiftUIApp: App {
     }
 
     private func handleLoggedInUserCredentials(_ credentials: UserCredentials, deeplinkInfo: DeeplinkInfo) {
-        let streamVideo = StreamVideo(
+        let streamVideo = StreamVideoClass(
             apiKey: Config.apiKey,
             user: credentials.userInfo,
             token: credentials.token,
@@ -99,7 +99,7 @@ struct StreamVideoSwiftUIApp: App {
             }
             return currentUser
         }()
-        let streamVideo = StreamVideo(
+        let streamVideo = StreamVideoClass(
             apiKey: Config.apiKey,
             user: user,
             token: .empty,

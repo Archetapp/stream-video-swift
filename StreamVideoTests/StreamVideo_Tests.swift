@@ -9,16 +9,16 @@ final class StreamVideo_Tests: StreamVideoTestCase {
 
     func test_streamVideo_anonymousConnectError() async throws {
         // Given
-        let streamVideo = StreamVideo(
+        let streamVideo = StreamVideoClass(
             apiKey: "key1",
             user: .anonymous,
-            token: StreamVideo.mockToken,
+            token: StreamVideoClass.mockToken,
             tokenProvider: { _ in }
         )
         
         // Then
         do {
-            try await streamVideo.connect()
+            try await StreamVideoClass.connect()
             XCTFail("connect should fail for anonymous users")
         } catch {
             XCTAssert(error is ClientError.MissingPermissions)
@@ -27,15 +27,15 @@ final class StreamVideo_Tests: StreamVideoTestCase {
     
     func test_streamVideo_makeCall() {
         // Given
-        let streamVideo = StreamVideo(
+        let streamVideo = StreamVideoClass(
             apiKey: "key1",
-            user: StreamVideo.mockUser,
-            token: StreamVideo.mockToken,
+            user: StreamVideoClass.mockUser,
+            token: StreamVideoClass.mockToken,
             tokenProvider: { _ in }
         )
         
         // When
-        let call = streamVideo.call(callType: .default, callId: "123")
+        let call = StreamVideoClass.call(callType: .default, callId: "123")
         
         // Then
         XCTAssert(call.cId == "default:123")
@@ -45,33 +45,33 @@ final class StreamVideo_Tests: StreamVideoTestCase {
     
     func test_streamVideo_activeCallAndLeave() async throws {
         // Given
-        let streamVideo = StreamVideo.mock(httpClient: HTTPClient_Mock())
-        let call = streamVideo.call(callType: .default, callId: "123")
+        let streamVideo = StreamVideoClass.mock(httpClient: HTTPClient_Mock())
+        let call = StreamVideoClass.call(callType: .default, callId: "123")
         
         // When
         try await call.join()
 
         // Then
-        XCTAssert(streamVideo.state.activeCall?.cId == call.cId)
+        XCTAssert(StreamVideoClass.state.activeCall?.cId == call.cId)
         
         // When
         call.leave()
         
         // Then
-        XCTAssert(streamVideo.state.activeCall == nil)
+        XCTAssert(StreamVideoClass.state.activeCall == nil)
     }
     
     func test_streamVideo_ringCallAccept() async throws {
         let httpClient = httpClientWithGetCallResponse()
-        let streamVideo = StreamVideo.mock(httpClient: httpClient)
-        let call = streamVideo.call(callType: .default, callId: "123")
+        let streamVideo = StreamVideoClass.mock(httpClient: httpClient)
+        let call = StreamVideoClass.call(callType: .default, callId: "123")
         
         // When
         try await call.ring()
         
         // Then
-        XCTAssert(streamVideo.state.activeCall == nil)
-        XCTAssert(streamVideo.state.ringingCall?.cId == call.cId)
+        XCTAssert(StreamVideoClass.state.activeCall == nil)
+        XCTAssert(StreamVideoClass.state.ringingCall?.cId == call.cId)
         
         // When
         let callAcceptedEvent = CallAcceptedEvent(
@@ -81,12 +81,12 @@ final class StreamVideo_Tests: StreamVideoTestCase {
             user: makeUserResponse()
         )
         let event = WrappedEvent.coordinatorEvent(.typeCallAcceptedEvent(callAcceptedEvent))
-        streamVideo.eventNotificationCenter.process(event)
+        StreamVideoClass.eventNotificationCenter.process(event)
         try await call.join()
         
         // Then
-        XCTAssert(streamVideo.state.ringingCall == nil)
-        XCTAssert(streamVideo.state.activeCall?.cId == call.cId)
+        XCTAssert(StreamVideoClass.state.ringingCall == nil)
+        XCTAssert(StreamVideoClass.state.activeCall?.cId == call.cId)
     }
     
     func test_streamVideo_ringCallReject() async throws {
@@ -94,28 +94,28 @@ final class StreamVideo_Tests: StreamVideoTestCase {
         let rejectCallResponse = RejectCallResponse(duration: "1")
         let data = try! JSONEncoder.default.encode(rejectCallResponse)
         httpClient.dataResponses.append(data)
-        let streamVideo = StreamVideo.mock(httpClient: httpClient)
-        let call = streamVideo.call(callType: .default, callId: "123")
+        let streamVideo = StreamVideoClass.mock(httpClient: httpClient)
+        let call = StreamVideoClass.call(callType: .default, callId: "123")
         
         // When
         try await call.ring()
         
         // Then
-        XCTAssert(streamVideo.state.activeCall == nil)
-        XCTAssert(streamVideo.state.ringingCall?.cId == call.cId)
+        XCTAssert(StreamVideoClass.state.activeCall == nil)
+        XCTAssert(StreamVideoClass.state.ringingCall?.cId == call.cId)
         
         // When
         try await call.reject()
         
         // Then
-        XCTAssert(streamVideo.state.ringingCall == nil)
-        XCTAssert(streamVideo.state.activeCall == nil)
+        XCTAssert(StreamVideoClass.state.ringingCall == nil)
+        XCTAssert(StreamVideoClass.state.activeCall == nil)
     }
     
     func test_streamVideo_incomingCallAccept() async throws {
         // Given
-        let streamVideo = StreamVideo.mock(httpClient: HTTPClient_Mock())
-        let call = streamVideo.call(callType: .default, callId: "123")
+        let streamVideo = StreamVideoClass.mock(httpClient: HTTPClient_Mock())
+        let call = StreamVideoClass.call(callType: .default, callId: "123")
 
         // When
         let ringEvent = CallRingEvent(
@@ -127,19 +127,19 @@ final class StreamVideo_Tests: StreamVideoTestCase {
             user: makeUserResponse()
         )
         let incomingCall = WrappedEvent.coordinatorEvent(.typeCallRingEvent(ringEvent))
-        streamVideo.eventNotificationCenter.process(incomingCall)
+        StreamVideoClass.eventNotificationCenter.process(incomingCall)
         try await waitForCallEvent()
         
         // Then
-        XCTAssert(streamVideo.state.activeCall == nil)
-        XCTAssert(streamVideo.state.ringingCall?.cId == call.cId)
+        XCTAssert(StreamVideoClass.state.activeCall == nil)
+        XCTAssert(StreamVideoClass.state.ringingCall?.cId == call.cId)
 
         // When
         try await call.join()
         
         // Then
-        XCTAssert(streamVideo.state.ringingCall == nil)
-        XCTAssert(streamVideo.state.activeCall?.cId == call.cId)
+        XCTAssert(StreamVideoClass.state.ringingCall == nil)
+        XCTAssert(StreamVideoClass.state.activeCall?.cId == call.cId)
     }
     
     func test_streamVideo_incomingCallReject() async throws {
@@ -147,8 +147,8 @@ final class StreamVideo_Tests: StreamVideoTestCase {
         let httpClient = HTTPClient_Mock()
         let data = try! JSONEncoder().encode(RejectCallResponse(duration: "1"))
         httpClient.dataResponses = [data]
-        let streamVideo = StreamVideo.mock(httpClient: httpClient)
-        let call = streamVideo.call(callType: .default, callId: "123")
+        let streamVideo = StreamVideoClass.mock(httpClient: httpClient)
+        let call = StreamVideoClass.call(callType: .default, callId: "123")
 
         // When
         let ringEvent = CallRingEvent(
@@ -160,33 +160,33 @@ final class StreamVideo_Tests: StreamVideoTestCase {
             user: makeUserResponse()
         )
         let incomingCall = WrappedEvent.coordinatorEvent(.typeCallRingEvent(ringEvent))
-        streamVideo.eventNotificationCenter.process(incomingCall)
+        StreamVideoClass.eventNotificationCenter.process(incomingCall)
         try await waitForCallEvent()
         
         // Then
-        XCTAssert(streamVideo.state.activeCall == nil)
-        XCTAssert(streamVideo.state.ringingCall?.cId == call.cId)
+        XCTAssert(StreamVideoClass.state.activeCall == nil)
+        XCTAssert(StreamVideoClass.state.ringingCall?.cId == call.cId)
 
         // When
         try await call.reject()
         
         // Then
-        XCTAssert(streamVideo.state.ringingCall == nil)
-        XCTAssert(streamVideo.state.activeCall == nil)
+        XCTAssert(StreamVideoClass.state.ringingCall == nil)
+        XCTAssert(StreamVideoClass.state.activeCall == nil)
     }
     
     func test_streamVideo_initialState() {
         // Given
-        let streamVideo = StreamVideo(
+        let streamVideo = StreamVideoClass(
             apiKey: "key1",
-            user: StreamVideo.mockUser,
-            token: StreamVideo.mockToken,
+            user: StreamVideoClass.mockUser,
+            token: StreamVideoClass.mockToken,
             tokenProvider: { _ in }
         )
         
         // Then
-        XCTAssert(streamVideo.state.user == StreamVideo.mockUser)
-        XCTAssert(streamVideo.state.connection == .initialized)
+        XCTAssert(StreamVideoClass.state.user == StreamVideoClass.mockUser)
+        XCTAssert(StreamVideoClass.state.connection == .initialized)
     }
     
     //MARK: - private

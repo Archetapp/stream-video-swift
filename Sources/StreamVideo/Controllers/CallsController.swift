@@ -30,13 +30,13 @@ public class CallsController: ObservableObject {
     private let state = State()
     
     private let callsQuery: CallsQuery
-    private let streamVideo: StreamVideo
+    private let streamVideo: StreamVideoClass
     
     private var watchTask: Task<Void, Error>?
     private var socketDisconnected = false
     private var cancellables = Set<AnyCancellable>()
         
-    init(streamVideo: StreamVideo, callsQuery: CallsQuery) {
+    init(streamVideo: StreamVideoClass, callsQuery: CallsQuery) {
         self.callsQuery = callsQuery
         self.streamVideo = streamVideo
         self.subscribeToWatchEvents()

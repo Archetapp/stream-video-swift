@@ -19,7 +19,7 @@ extension StreamVideo {
         httpClient: HTTPClient,
         callController: CallController? = nil
     ) -> StreamVideo {
-        let streamVideo = StreamVideo(
+        let streamVideo = StreamVideoClass(
             apiKey: apiKey,
             user: mockUser,
             token: mockToken,

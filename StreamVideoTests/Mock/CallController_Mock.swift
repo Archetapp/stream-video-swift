@@ -9,11 +9,11 @@ class CallController_Mock: CallController {
     let mockResponseBuilder = MockResponseBuilder()
             
     internal lazy var webRTCClient = WebRTCClient(
-        user: StreamVideo.mockUser,
+        user: StreamVideoClass.mockUser,
         apiKey: "key1",
         hostname: "localhost",
         webSocketURLString: "wss://localhost/ws",
-        token: StreamVideo.mockToken.rawValue,
+        token: StreamVideoClass.mockToken.rawValue,
         callCid: "default:test",
         sessionID: nil,
         ownCapabilities: [.sendAudio, .sendVideo],
@@ -73,7 +73,7 @@ extension CallController_Mock {
                 transport: HTTPClient_Mock(),
                 middlewares: []
             ),
-            user: StreamVideo.mockUser,
+            user: StreamVideoClass.mockUser,
             callId: "123",
             callType: "default",
             apiKey: "key1",

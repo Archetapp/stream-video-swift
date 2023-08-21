@@ -28,7 +28,7 @@ public class StreamVideoUI {
         appearance: Appearance = Appearance(),
         utils: Utils = Utils()
     ) {
-        let streamVideo = StreamVideo(
+        let streamVideo = StreamVideoClass(
             apiKey: apiKey,
             user: user,
             token: token,

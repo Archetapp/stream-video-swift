@@ -154,7 +154,7 @@ class CallKitService: NSObject, CXProviderDelegate, @unchecked Sendable {
             return
         }
         if AppState.shared.streamVideo == nil {
-            let streamVideo = StreamVideo(
+            let streamVideo = StreamVideoClass(
                 apiKey: Config.apiKey,
                 user: currentUser.userInfo,
                 token: currentUser.token,

@@ -4,7 +4,7 @@
 
 import Foundation
 
-extension StreamVideo {
+extension StreamVideoClass {
     struct Environment {
         var webSocketClientBuilder: (
             _ eventNotificationCenter: EventNotificationCenter,

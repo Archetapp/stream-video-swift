@@ -40,7 +40,7 @@ final class HTTPClient_Mock: @unchecked Sendable, HTTPClient, DefaultAPITranspor
     func setTokenUpdater(_ tokenUpdater: @escaping UserTokenUpdater) {}
     
     func refreshToken() async throws -> UserToken {
-        StreamVideo.mockToken
+        StreamVideoClass.mockToken
     }
     
     func update(tokenProvider: @escaping UserTokenProvider) {}

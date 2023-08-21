@@ -730,11 +730,11 @@ final class WebRTCClient_Tests: StreamVideoTestCase {
         }
 
         let webRTCClient = WebRTCClient(
-            user: StreamVideo.mockUser,
-            apiKey: StreamVideo.apiKey,
+            user: StreamVideoClass.mockUser,
+            apiKey: StreamVideoClass.apiKey,
             hostname: "test.com",
             webSocketURLString: "wss://test.com/ws",
-            token: StreamVideo.mockToken.rawValue,
+            token: StreamVideoClass.mockToken.rawValue,
             callCid: callCid,
             sessionID: nil,
             ownCapabilities: ownCapabilities,

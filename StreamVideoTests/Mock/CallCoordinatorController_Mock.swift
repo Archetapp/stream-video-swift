@@ -10,12 +10,12 @@ class CallCoordinatorController_Mock: CallCoordinatorController {
     
     override func createGuestUser(with id: String) async throws -> CreateGuestResponse {
         CreateGuestResponse(
-            accessToken: StreamVideo.mockToken.rawValue,
+            accessToken: StreamVideoClass.mockToken.rawValue,
             duration: "",
             user: UserResponse(
                 createdAt: Date(),
                 custom: [:],
-                id: StreamVideo.mockUser.id,
+                id: StreamVideoClass.mockUser.id,
                 role: "", teams: [],
                 updatedAt: Date()
             )
@@ -57,7 +57,7 @@ class CallCoordinatorController_Mock: CallCoordinatorController {
         return EdgeServer(
             url: "test.com",
             webSocketURL: "wss://test.com/ws",
-            token: StreamVideo.mockToken.rawValue,
+            token: StreamVideoClass.mockToken.rawValue,
             iceServers: [],
             callSettings: callSettingsInfo,
             latencyURL: nil

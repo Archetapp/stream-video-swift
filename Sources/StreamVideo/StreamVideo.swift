@@ -9,9 +9,9 @@ import WebRTC
 public typealias UserTokenProvider = (@escaping (Result<UserToken, Error>) -> Void) -> Void
 public typealias UserTokenUpdater = (UserToken) -> Void
 
-/// Main class for interacting with the `StreamVideo` SDK.
+/// Main class for interacting with the `StreamVideoClass` SDK.
 /// Needs to be initalized with a valid api key, user and token (and token provider).
-public class StreamVideo: ObservableObject {
+public class StreamVideoClass: ObservableObject {
     
     public class State: ObservableObject {
         @Published public internal(set) var connection: ConnectionStatus = .initialized
@@ -79,7 +79,7 @@ public class StreamVideo: ObservableObject {
     private let environment: Environment
     private let pushNotificationsConfig: PushNotificationsConfig
     
-    /// Initializes a new instance of `StreamVideo` with the specified parameters.
+    /// Initializes a new instance of `StreamVideoClass` with the specified parameters.
     /// - Parameters:
     ///   - apiKey: The API key.
     ///   - user: The `User` who is logged in.
@@ -87,7 +87,7 @@ public class StreamVideo: ObservableObject {
     ///   - videoConfig: A `VideoConfig` instance representing the current video config.
     ///   - pushNotificationsConfig: Config for push notifications.
     ///   - tokenProvider: A closure that refreshes a token when it expires.
-    /// - Returns: A new instance of `StreamVideo`.
+    /// - Returns: A new instance of `StreamVideoClass`.
     public convenience init(
         apiKey: String,
         user: User,
@@ -131,7 +131,7 @@ public class StreamVideo: ObservableObject {
             transport: apiTransport,
             middlewares: [defaultParams]
         )
-        StreamVideoProviderKey.currentValue = self
+        StreamVideoClassProviderKey.currentValue = self
         (self.apiTransport as? URLSessionTransport)?.setTokenUpdater { [weak self] userToken in
             self?.token = userToken
         }
@@ -196,7 +196,7 @@ public class StreamVideo: ObservableObject {
     /// - Returns: `CallsController`
     public func makeCallsController(callsQuery: CallsQuery) -> CallsController {
         let controller = CallsController(
-            streamVideo: self,
+            StreamVideoClass: self,
             callsQuery: callsQuery
         )
         return controller
@@ -239,7 +239,7 @@ public class StreamVideo: ObservableObject {
         try await coordinatorClient.listDevices().devices
     }
     
-    /// Disconnects the current `StreamVideo` client.
+    /// Disconnects the current `StreamVideoClass` client.
     public func disconnect() async {
         eventHandlers.removeAll()
 
@@ -553,7 +553,7 @@ public class StreamVideo: ObservableObject {
     
 }
 
-extension StreamVideo: ConnectionStateDelegate {
+extension StreamVideoClass: ConnectionStateDelegate {
     
     func webSocketClient(
         _ client: WebSocketClient,
@@ -584,7 +584,7 @@ extension StreamVideo: ConnectionStateDelegate {
     }
 }
 
-extension StreamVideo: WSEventsSubscriber {
+extension StreamVideoClass: WSEventsSubscriber {
     
     func onEvent(_ event: WrappedEvent) {
         for eventHandler in eventHandlers {
@@ -607,7 +607,7 @@ extension StreamVideo: WSEventsSubscriber {
     }
 }
 
-/// Returns the current value for the `StreamVideo` instance.
-internal struct StreamVideoProviderKey: InjectionKey {
-    static var currentValue: StreamVideo?
+/// Returns the current value for the `StreamVideoClass` instance.
+internal struct StreamVideoClassProviderKey: InjectionKey {
+    static var currentValue: StreamVideoClass?
 }

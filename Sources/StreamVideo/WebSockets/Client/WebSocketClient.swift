@@ -158,7 +158,7 @@ extension WebSocketClient {
         
         var httpClientBuilder: () -> HTTPClient = {
             URLSessionClient(
-                urlSession: StreamVideo.Environment.makeURLSession()
+                urlSession: StreamVideoClass.Environment.makeURLSession()
             )
         }
         

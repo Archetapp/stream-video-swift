@@ -21,7 +21,7 @@ class StreamVideoUITestCase: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        let streamVideo = StreamVideo.mock(httpClient: httpClient)
+        let streamVideo = StreamVideoClass.mock(httpClient: httpClient)
         streamVideoUI = StreamVideoUI(streamVideo: streamVideo)
     }
     
