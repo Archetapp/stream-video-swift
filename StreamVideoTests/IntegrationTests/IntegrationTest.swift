@@ -33,7 +33,7 @@ class IntegrationTest: XCTestCase {
     }
     
     public func refreshStreamVideoProviderKey() {
-        StreamVideoProviderKey.currentValue = client
+        StreamVideoClassProviderKey.currentValue = client
     }
 
     public override func setUp() async throws {
