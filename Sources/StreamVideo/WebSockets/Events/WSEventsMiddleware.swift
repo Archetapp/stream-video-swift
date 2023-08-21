@@ -9,7 +9,7 @@ final class WSEventsMiddleware: EventMiddleware {
     private var subscribers = NSHashTable<AnyObject>.weakObjects()
 
     func handle(event: WrappedEvent) -> WrappedEvent? {
-        var streamVideo: StreamVideo?
+        var streamVideo: StreamVideoClass?
         for subscriber in subscribers.allObjects {
             if let subscriber = subscriber as? StreamVideoClass {
                 streamVideo = subscriber
