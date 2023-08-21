@@ -4,7 +4,7 @@
 
 import Foundation
 @testable import StreamVideo
-import protocol StreamVideoClass.Timer
+import protocol StreamVideo.Timer
 
 struct VirtualTimeTimer: Timer {
     static var time: VirtualTime!

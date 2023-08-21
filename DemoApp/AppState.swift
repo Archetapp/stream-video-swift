@@ -28,7 +28,7 @@ class AppState: ObservableObject {
 
     @Published var activeAnonymousCallId: String = ""
     
-    var streamVideo: StreamVideo? {
+    var streamVideo: StreamVideoClass? {
         didSet {
             setPushToken()
             setVoipToken()

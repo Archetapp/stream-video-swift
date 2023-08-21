@@ -5,7 +5,7 @@
 import StreamVideo
 
 public class StreamVideoUI {
-    var streamVideo: StreamVideo
+    var streamVideo: StreamVideoClass
     var appearance: Appearance
     var utils: Utils
     
@@ -49,7 +49,7 @@ public class StreamVideoUI {
     ///   - utils: The `Utils` instance to use for utility functions.
     /// - Returns: A new instance of `StreamVideoUI`.
     public init(
-        streamVideo: StreamVideo,
+        streamVideo: StreamVideoClass,
         appearance: Appearance = Appearance(),
         utils: Utils = Utils()
     ) {

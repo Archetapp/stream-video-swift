@@ -196,7 +196,7 @@ public class StreamVideoClass: ObservableObject {
     /// - Returns: `CallsController`
     public func makeCallsController(callsQuery: CallsQuery) -> CallsController {
         let controller = CallsController(
-            StreamVideoClass: self,
+            streamVideo: self,
             callsQuery: callsQuery
         )
         return controller

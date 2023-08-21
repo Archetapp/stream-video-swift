@@ -108,7 +108,7 @@ struct StreamVideoSwiftUIApp: App {
         setUp(streamVideo: streamVideo, deeplinkInfo: deeplinkInfo, user: user)
     }
 
-    private func setUp(streamVideo: StreamVideo, deeplinkInfo: DeeplinkInfo, user: User?) {
+    private func setUp(streamVideo: StreamVideoClass, deeplinkInfo: DeeplinkInfo, user: User?) {
         appState.deeplinkInfo = deeplinkInfo
         appState.currentUser = user
         appState.userState = .loggedIn
